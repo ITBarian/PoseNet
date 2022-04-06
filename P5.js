@@ -17,9 +17,9 @@ function setup() { // this function runs only once while running
     //detect pose 
     posenet.on('pose', recievedPoses);
 
-    actor_img = loadImage('images/shahrukh.png');
-    specs = loadImage('images/spects.png');
-    smoke = loadImage('images/cigar.png');
+    ri1 = loadImage('images/ri1.png');
+    ri2 = loadImage('images/ri2.png');
+    ri3 = loadImage('images/ri3.png');
 }
     
 function recievedPoses (poses) {
@@ -80,9 +80,9 @@ function draw() { // this function code runs in infinite loop
             line(skeleton[j][0].position.x, skeleton[j][0].position.y, skeleton[j][1].position.x, skeleton[j][1].position.y);
         }
 
-        // Apply specs and cigar
-        image(specs, singlePose.nose.x-40, singlePose.nose.y-70, 125, 125);
-        image(smoke, singlePose.nose.x-35, singlePose.nose.y+28, 50, 50);
+        // Apply ri2 and ri3
+        image(ri2, singlePose.nose.x-40, singlePose.nose.y-70, 125, 125);
+        image(ri3, singlePose.nose.x-35, singlePose.nose.y+28, 50, 50);
     }
 }
 
