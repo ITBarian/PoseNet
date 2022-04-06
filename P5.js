@@ -65,12 +65,15 @@ function draw() { // this function code runs in infinite loop
     
     // images and video(webcam)
     image(capture, 0, 0);
-    fill(255, 0, 0);
+    r = getRandomArbitrary(0, 255); 
+    g = getRandomArbitrary(0, 255); 
+    b = getRandomArbitrary(0, 255); 
+    fill(r,g,b);
     
     if(singlePose) { // if someone is captured then only
         //Capture all estimated point and draw a circle of 20 radius
         for(let i=0; i<singlePose.keypoints.length; i++) {
-            ellipse(singlePose.keypoints[i].position.x, singlePose.keypoints[i].position.y, 20);
+            ellipse(singlePose.keypoints[i].position.x, singlePose.keypoints[i].position.y, getRandomArbitrary(10, 35));
         }
 
         stroke(255, 255, 255);
@@ -86,8 +89,6 @@ function draw() { // this function code runs in infinite loop
     }
 }
 
-/*
 function getRandomArbitrary(min, max) { // generate random num
     return Math.random() * (max - min) + min;
 }
-*/
