@@ -7,21 +7,23 @@ let singlePose,skeleton;
 let actor_img;
 let specs,smoke;
 
-function setup() { // this function runs only once while running
+function setup() { // funcio d'inici (un sol cop quan s'obri l'aplicacio)
     createCanvas(800, 500); 
     //console.log("setup function"); 
     capture = createCapture(VIDEO); 
     capture.hide(); 
-    //load the PoseNet model 
+    // aqui feim la carrega del fitxer ml5
     posenet = ml5.poseNet(capture, console.log("model has loaded")); 
-    //detect pose 
+    // detectem les poses
     posenet.on('pose', recievedPoses);
 
+    // feim la carrega de les imatges a les variables
     ri1 = loadImage('images/ri1.png');
     ri2 = loadImage('images/ri2.png');
     ri3 = loadImage('images/ri3.png');
 }
     
+// amb aquesta funcio rebem les poses
 function recievedPoses (poses) {
     console.log(poses); 
     if(poses.length > 0) {
@@ -61,34 +63,34 @@ function draw() {
 }
 */
 
-function draw() { // this function code runs in infinite loop
+function draw() { // aquesta funcio esta en un loop constant dibuixant les poses per a la captura de video
     
     // images and video(webcam)
     image(capture, 0, 0);
     r = getRandomArbitrary(0, 255); 
     g = getRandomArbitrary(0, 255); 
     b = getRandomArbitrary(0, 255); 
-    fill(r,g,b);
+    fill(r,g,b); // feim que el color dels cercles sigui aleatori
     
     if(singlePose) { // if someone is captured then only
-        //Capture all estimated point and draw a circle of 20 radius
+        // capturem totes les poses i dibuixem un cercle amb el tamany aleatori
         for(let i=0; i<singlePose.keypoints.length; i++) {
             ellipse(singlePose.keypoints[i].position.x, singlePose.keypoints[i].position.y, getRandomArbitrary(10, 35));
         }
 
         stroke(255, 255, 255);
         strokeWeight(5);
-        // construct skeleton structure by joining 2 parts with line
+        // construim l'esquelet unint els punts per linies
         for(let j=0; j<skeleton.length; j++) {
             line(skeleton[j][0].position.x, skeleton[j][0].position.y, skeleton[j][1].position.x, skeleton[j][1].position.y);
         }
 
-        // Apply ri2 and ri3
+        // carreguem les imatges en dos llocs concrets agafant com a referencia el cercle del nas
         image(ri2, singlePose.nose.x-40, singlePose.nose.y-70, 125, 125);
         image(ri3, singlePose.nose.x-35, singlePose.nose.y+28, 50, 50);
     }
 }
 
-function getRandomArbitrary(min, max) { // generate random num
+function getRandomArbitrary(min, max) { // funcio per a generar un numero aleatori entre un minim i un maxim donat
     return Math.random() * (max - min) + min;
 }
