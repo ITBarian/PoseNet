@@ -26,10 +26,16 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(320, 260);
+  createCanvas(600, 500);
   // Create the video
   video = createCapture(VIDEO);
-  video.size(320, 240);
+  var style = video.style;
+  style.marginLeft = "auto";
+  style.marginRight = "auto";
+  var parentStyle = canvas.parentElement.style;
+  parentStyle.textAlign = "center";
+  parentStyle.width = "100%";
+  video.size(600, 500);
   video.hide();
 
   flippedVideo = ml5.flipImage(video)
@@ -44,7 +50,7 @@ function draw() {
 
   // Draw the label
   fill(255);
-  textSize(16);
+  textSize(32);
   textAlign(CENTER);
   text(label, width / 2, height - 4);
 }
